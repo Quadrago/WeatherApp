@@ -1,12 +1,21 @@
 package com.mycompany.mavenproject1;
 
 import java.io.IOException;
-import javafx.fxml.FXML;
+import java.net.URL;
+import java.util.ResourceBundle;
 
-public class PrimaryController {
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+
+public class PrimaryController implements Initializable {
 
     @FXML
     private void switchToSecondary() throws IOException {
-        App.setRoot("secondary");
+        App.setRoot("GeneralInformation");
+    }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+       
     }
 }
