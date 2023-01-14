@@ -6,9 +6,14 @@ import java.util.ResourceBundle;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 
 public class InformationController implements Initializable {
 
@@ -53,8 +58,24 @@ public class InformationController implements Initializable {
     @FXML
     void getWeather(MouseEvent event) throws IOException {
         AccuWeather a = new AccuWeather();
-        a.requestLocation(CountryBox.getValue(), stateBox.getValue(), cityBox.getValue());
+        //a.requestLocation(CountryBox.getValue(), stateBox.getValue(), cityBox.getValue());
+        a.requestLocation("Canada", "Ontario", "Markham");
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("WeatherData.fxml"));
+        Parent root = loader.load();
+
+        //pass weather data to clothing recommendation controller
+        WeatherDataController weatherDataController = loader.getController();
+        String[] temp = {"1","1","1"};
+        weatherDataController.setInfo(temp,"jordan");
+
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);;
+        stage.show();
     }
+
+
     
     
 

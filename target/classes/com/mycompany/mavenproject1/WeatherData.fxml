@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.mavenproject1.WeatherDataController">
+   <children>
+      <Text fx:id="locationLabel" layoutX="146.0" layoutY="79.0" strokeType="OUTSIDE" strokeWidth="0.0" text="The Weather Data In &quot;   &quot; " textAlignment="CENTER" wrappingWidth="308.568359375">
+         <font>
+            <Font name="Arial" size="18.0" />
+         </font>
+      </Text>
+      <Text fx:id="temperatureLabel" layoutX="146.0" layoutY="154.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Temperature: &quot;  &quot;°C" textAlignment="CENTER" wrappingWidth="308.568359375">
+         <font>
+            <Font name="Arial" size="18.0" />
+         </font>
+      </Text>
+      <Text fx:id="windSpeedLabel" layoutX="146.0" layoutY="206.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Wind Speed: &quot;  &quot;km/h" textAlignment="CENTER" wrappingWidth="308.568359375">
+         <font>
+            <Font name="Arial" size="18.0" />
+         </font>
+      </Text>
+      <Text fx:id="humidityLabel" layoutX="146.0" layoutY="258.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Humidity: &quot;  &quot;%rh" textAlignment="CENTER" wrappingWidth="308.568359375">
+         <font>
+            <Font name="Arial" size="18.0" />
+         </font>
+      </Text>
+      <Button layoutX="93.0" layoutY="321.0" mnemonicParsing="false" text="Back Button">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Button>
+      <Button layoutX="374.0" layoutY="321.0" mnemonicParsing="false" onAction="#switchToClothingRec" text="Continue Button">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>
