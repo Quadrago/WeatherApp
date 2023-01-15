@@ -58,16 +58,27 @@ public class InformationController implements Initializable {
     @FXML
     void getWeather(MouseEvent event) throws IOException {
         AccuWeather a = new AccuWeather();
-        //a.requestLocation(CountryBox.getValue(), stateBox.getValue(), cityBox.getValue());
-        a.requestLocation("Canada", "Ontario", "Markham");
-
+        String[] weatherData = a.requestLocation(CountryBox.getValue(), stateBox.getValue(), cityBox.getValue());
+        // String[] weatherData = a.requestLocation("Canada", "Ontario", "Markham");
+        for(String s : weatherData) System.out.println(s);
         FXMLLoader loader = new FXMLLoader(getClass().getResource("WeatherData.fxml"));
         Parent root = loader.load();
 
-        //pass weather data to clothing recommendation controller
+        // pass weather data to clothing recommendation controller
         WeatherDataController weatherDataController = loader.getController();
-        String[] temp = {"1","1","1"};
-        weatherDataController.setInfo(temp,"jordan");
+   
+        weatherDataController.setInfo(weatherData,"jordan");
+
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    @FXML
+    void switchToMenu(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("MainMenu.fxml"));
+        Parent root = loader.load();
 
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);

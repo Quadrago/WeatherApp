@@ -27,7 +27,7 @@
             <Font name="Arial" size="18.0" />
          </font>
       </Text>
-      <Button layoutX="93.0" layoutY="321.0" mnemonicParsing="false" text="Back Button">
+      <Button layoutX="93.0" layoutY="321.0" mnemonicParsing="false" onAction="#switchToInfo" text="Back Button">
          <font>
             <Font size="16.0" />
          </font>

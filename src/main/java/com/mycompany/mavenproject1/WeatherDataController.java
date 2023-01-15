@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -50,12 +51,22 @@ public class WeatherDataController implements Initializable {
 
         //pass weather data to clothing recommendation controller
         ClothingController tempController = loader.getController();
-        String[] temp = {"1","1","1"};
-        tempController.setInfo(temp,"jordan");
+        tempController.setInfo(weatherInfo,"jordan");
 
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
         stage.setScene(scene);;
+        stage.show();
+    }
+
+    @FXML
+    void switchToInfo(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("GeneralInformation.fxml"));
+        Parent root = loader.load();
+
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
         stage.show();
     }
     

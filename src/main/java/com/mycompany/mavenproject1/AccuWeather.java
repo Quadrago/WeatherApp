@@ -11,7 +11,8 @@ public class AccuWeather {
     public AccuWeather() {
         System.out.println("Instantiated accuweather class!");
     }
-    public String requestLocation(String country, String state, String city) throws IOException {
+    
+    public String[] requestLocation(String country, String state, String city) throws IOException {
 
         Document doc = Jsoup.connect("https://www.accuweather.com/en/search-locations?query="+city+"+"+country+"+"+state).get();
 
@@ -21,21 +22,16 @@ public class AccuWeather {
         System.out.println(newLink);
         Document info = Jsoup.connect("https://www.accuweather.com"+newLink).get();
 
-        Elements weatherInfo = info.select("div.current-weather-details > div");
-        for(Element tempInfo: weatherInfo) {
-            System.out.println(tempInfo.lastElementChild().text());
-        }
-
-
-        return "";
+        Elements weatherElements = info.select("div.current-weather-details > div");
+        // for(Element tempInfo: weatherInfo) {
+        //     System.out.println(tempInfo.lastElementChild().text());
+        // }
+        String temp = weatherElements.get(0).lastElementChild().text();
+        String wind = weatherElements.get(1).lastElementChild().text();
+        String humidity = weatherElements.get(3).lastElementChild().text();
+        
+        String[] weatherData = {temp, wind, humidity};
+        return weatherData;
     }
-    public double getTemperature(String location) {
-        return -1.0;
-    }
-    public double getWindSpeed(String location) {
-        return -1.0;
-    }
-    public double getHumidity(String location) {
-        return -1.0;
-    }
+   
 }

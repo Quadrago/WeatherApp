@@ -14,7 +14,7 @@
             <Font name="Arial" size="18.0" />
          </font>
       </Text>
-      <Button layoutX="103.0" layoutY="331.0" mnemonicParsing="false" text="Back Button">
+      <Button layoutX="103.0" layoutY="331.0" mnemonicParsing="false" onAction="#switchToWeather" text="Back Button">
          <font>
             <Font size="16.0" />
          </font>
@@ -26,18 +26,18 @@
       </Button>
       <HBox layoutX="44.0" layoutY="63.0" prefHeight="128.0" prefWidth="512.0">
          <children>
-            <ImageView fx:id="imageTest" fitHeight="128.0" fitWidth="128.0" pickOnBounds="true" preserveRatio="true" />
-            <ImageView fitHeight="128.0" fitWidth="128.0" pickOnBounds="true" preserveRatio="true" />
-            <ImageView fitHeight="128.0" fitWidth="128.0" pickOnBounds="true" preserveRatio="true" />
-            <ImageView fitHeight="128.0" fitWidth="128.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="mTopView" fitHeight="128.0" fitWidth="128.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="mBottomView" fitHeight="128.0" fitWidth="128.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="mShoeView" fitHeight="128.0" fitWidth="128.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="mAccessoryView" fitHeight="128.0" fitWidth="128.0" pickOnBounds="true" preserveRatio="true" />
          </children>
       </HBox>
       <HBox layoutX="44.0" layoutY="191.0" prefHeight="128.0" prefWidth="512.0">
          <children>
-            <ImageView fitHeight="128.0" fitWidth="128.0" pickOnBounds="true" preserveRatio="true" />
-            <ImageView fitHeight="128.0" fitWidth="128.0" pickOnBounds="true" preserveRatio="true" />
-            <ImageView fitHeight="128.0" fitWidth="128.0" pickOnBounds="true" preserveRatio="true" />
-            <ImageView fitHeight="128.0" fitWidth="128.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="fTopView" fitHeight="128.0" fitWidth="128.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="fBottomView" fitHeight="128.0" fitWidth="128.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="fShoeView" fitHeight="128.0" fitWidth="128.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="fAccessoryView" fitHeight="128.0" fitWidth="128.0" pickOnBounds="true" preserveRatio="true" />
          </children>
       </HBox>
    </children>
