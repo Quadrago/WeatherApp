@@ -19,7 +19,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-public class ClothingController implements Initializable {
+public class ClothingController {
     
     @FXML
     private ImageView fAccessoryView;
@@ -57,7 +57,16 @@ public class ClothingController implements Initializable {
     private String warmWear = "warmWear\\";
     private String averageWear = "averageWear\\";
     private String coldWear = "coldWear\\";
+
+    private String[] aboveTwenty = {"T-shirt", "Shorts", "Flip Flops", "Sunglasses", "Tanktop", "Skirt", "Crocs", "Sun Hat"};
+    private String[] aboveTen = {"Button Up Shirt", "Trousers", "Running Shoes", "Baseball Cap", "Blouse", "Leggings", "Sandals", "Bucket Hat"};
+    private String[] aboveZero = {"Turtleneck", "Jeans", "Timberland Boots", "Windbreaker", "Cardigan", "Jeggings", "Uggs", "Scarf"};
+    private String[] belowZero = {"Sweaters", "Pants", "Winter Boots", "Toque", "Hoodies", "Sweat Pants", "Knee-High Boots", "Jacket"};
     
+    private  String[] locationArr;
+    private String name;
+    
+
     @FXML
     void switchToClosingMenu(ActionEvent event) {
         
@@ -69,7 +78,7 @@ public class ClothingController implements Initializable {
 
         //pass weather data to clothing recommendation controller
         WeatherDataController tempController = loader.getController();
-        tempController.setInfo(weatherInfo,"jordan");
+        tempController.setInfo(weatherInfo, locationArr, name);
 
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
@@ -77,13 +86,8 @@ public class ClothingController implements Initializable {
         stage.show();
     }
 
-    private String imageDir = "WeatherApp\\src\\main\\resources\\com\\mycompany\\mavenproject1\\images\\";
+    private String imageDir = "src\\main\\resources\\com\\mycompany\\mavenproject1\\images\\";
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        System.out.println("test");
-    
-    }
     private Image getImage(String file) throws FileNotFoundException {
    
         InputStream stream = new FileInputStream(imageDir + file);
@@ -141,17 +145,20 @@ public class ClothingController implements Initializable {
         fAccessoryView.setImage(getImage(coldWear + "jacket.jpg"));
     }
 
-    public void setInfo(String[] weatherInfo, String place) throws FileNotFoundException {
+    public void setInfo(String[] weatherInfo, String[] locationArr, String name) throws FileNotFoundException {
         // temp = Double.parseDouble(weatherInfo[0]);
         this.weatherInfo = weatherInfo;
+        this.locationArr = locationArr;
+        this.name = name;
         String tempString = weatherInfo[0];
         temp = Double.parseDouble(tempString.substring(0,tempString.length()-1));
         
 
-        locationLabel.setText("The Weather Data in " + place);
+        locationLabel.setText("The Weather Data in " + locationArr[2] +", " + locationArr[1] + " " + locationArr[0]);
 
         if(temp  >= 20) {
             drawHotClothes();
+            CSV.exportData(locationArr, "123", weatherInfo, aboveTwenty);
         }
         else if(temp >= 10) {
             drawWarmClothes();

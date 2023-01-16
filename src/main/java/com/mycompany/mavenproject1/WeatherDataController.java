@@ -30,15 +30,18 @@ public class WeatherDataController implements Initializable {
 
     
     private String[] weatherInfo;
+    private String[] locationArr;
+    private String name;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
     }
-    public void setInfo(String[] weatherInfo, String place) {
-
+    public void setInfo(String[] weatherInfo, String[] locationArr, String name) {
+        this.locationArr = locationArr;
+        this.name = name;
         this.weatherInfo = weatherInfo;
-        locationLabel.setText("The Weather Data in " + place);
+        locationLabel.setText("The Weather Data in " + locationArr[2] +", " + locationArr[1] + " " + locationArr[0]);
         temperatureLabel.setText("Temperature: " + weatherInfo[0]);
         windSpeedLabel.setText("Wind: " + weatherInfo[1]);
         humidityLabel.setText("Humidity: " + weatherInfo[2]);
@@ -51,7 +54,7 @@ public class WeatherDataController implements Initializable {
 
         //pass weather data to clothing recommendation controller
         ClothingController tempController = loader.getController();
-        tempController.setInfo(weatherInfo,"jordan");
+        tempController.setInfo(weatherInfo, locationArr,name);
 
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);

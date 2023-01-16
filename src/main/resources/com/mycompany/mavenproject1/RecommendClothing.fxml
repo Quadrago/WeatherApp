@@ -9,7 +9,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.mavenproject1.ClothingController">
    <children>
-      <Text fx:id="locationLabel" layoutX="157.0" layoutY="52.0" strokeType="OUTSIDE" strokeWidth="0.0" text="The Recommended Clothing In &quot;   &quot; " textAlignment="CENTER" wrappingWidth="308.568359375">
+      <Text fx:id="locationLabel" layoutX="29.0" layoutY="46.0" strokeType="OUTSIDE" strokeWidth="0.0" text="The Recommended Clothing In &quot;   &quot; " textAlignment="CENTER" wrappingWidth="541.568359375">
          <font>
             <Font name="Arial" size="18.0" />
          </font>

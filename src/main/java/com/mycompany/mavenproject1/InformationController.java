@@ -12,6 +12,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
@@ -27,6 +28,9 @@ public class InformationController implements Initializable {
 
     @FXML
     private ComboBox<String> cityBox;
+
+    @FXML
+    private TextField nameInput;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -57,6 +61,10 @@ public class InformationController implements Initializable {
 
     @FXML
     void getWeather(MouseEvent event) throws IOException {
+
+        String name = nameInput.getText();
+        String[] locationArr = {CountryBox.getValue(),stateBox.getValue(),cityBox.getValue()};
+
         AccuWeather a = new AccuWeather();
         String[] weatherData = a.requestLocation(CountryBox.getValue(), stateBox.getValue(), cityBox.getValue());
         // String[] weatherData = a.requestLocation("Canada", "Ontario", "Markham");
@@ -66,8 +74,7 @@ public class InformationController implements Initializable {
 
         // pass weather data to clothing recommendation controller
         WeatherDataController weatherDataController = loader.getController();
-   
-        weatherDataController.setInfo(weatherData,"jordan");
+        weatherDataController.setInfo(weatherData, locationArr, name);
 
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
