@@ -5,6 +5,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.ResourceBundle;
 
 import javafx.event.ActionEvent;
@@ -156,18 +158,25 @@ public class ClothingController {
 
         locationLabel.setText("The Weather Data in " + locationArr[2] +", " + locationArr[1] + " " + locationArr[0]);
 
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");  
+        Date date = new Date(); 
+        String strDate = formatter.format(date).replace(" ", ","); 
+        System.out.println(strDate);
         if(temp  >= 20) {
             drawHotClothes();
-            CSV.exportData(locationArr, "123", weatherInfo, aboveTwenty);
+            CSV.exportData(locationArr, strDate , weatherInfo, aboveTwenty);
         }
         else if(temp >= 10) {
             drawWarmClothes();
+            CSV.exportData(locationArr, strDate, weatherInfo, aboveTen);
         }
         else if(temp >= 0) {
             drawAverageClothes();
+            CSV.exportData(locationArr, strDate, weatherInfo, aboveZero);
         }
         else if(temp < 0) {
             drawColdClothes(); 
+            CSV.exportData(locationArr, strDate, weatherInfo, belowZero);
         }
 
     }

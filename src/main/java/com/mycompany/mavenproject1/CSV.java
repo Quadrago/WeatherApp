@@ -6,28 +6,28 @@ import java.io.File;
 class CSV {  
 
   public static void exportData(String[] location, String date, String[] weatherInfo, String[] clothingRec) {
+    System.out.println("result");
     String path = "results.csv";
 
-    // Create File
-    try {
-      File file = new File(path);
-      if (file.createNewFile()) {
-        System.out.println("File created: " + file.getName());
-      } else {
-        System.out.println("File already exists.");
-      }
-    } catch (IOException e) {
-      System.out.println("An error occurred.");
-      e.printStackTrace();
+    FileWriter writer = null;
+    File f = new File(path);
+    if(!f.exists() && !f.isDirectory()) { 
+        try {
+          writer = new FileWriter(path, true);
+          writer.write("Country,State,City,Day Of Interest,Temperature,Humidity,Wind,Clothing Options\n");
+          writer.close();
+        } catch (IOException e) {
+          e.printStackTrace();
+        }
+    } 
+    else {
+      System.out.println("File already exists.");
     }
 
     // Write File
     try {
-      FileWriter writer = new FileWriter(path);
-
-      // not sure if this part works
-      writer.write("Country,State,City, Day Of Interest,Temperature,Humidity,Wind,Clothing Options\n");
-      String text = String.join(",",location) + "," + String.join(",",weatherInfo) + ","+ String.join(",",clothingRec) + "\n";
+      writer = new FileWriter(path, true);
+      String text = String.join(",",location) + "," + date + "," + String.join(",",weatherInfo) + ","+ String.join(",",clothingRec) + "\n";
       writer.write(text);
       
       writer.close();

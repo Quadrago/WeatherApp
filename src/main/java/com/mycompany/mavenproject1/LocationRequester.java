@@ -26,7 +26,7 @@ public class LocationRequester {
         System.out.println("Getting Countries.....");
         HttpRequest request = HttpRequest.newBuilder()
             .uri(URI.create("https://referential.p.rapidapi.com/v1/country?limit=250"))
-            .header("X-RapidAPI-Key", "0576e40e11mshf0f4f140e25ff2dp15a79fjsn95442c75dd58")
+            .header("X-RapidAPI-Key", "80cfee487dmsh3c85dbf436bac52p19a664jsnab7a8bdfb0ad")
             .header("X-RapidAPI-Host", "referential.p.rapidapi.com")
             .method("GET", HttpRequest.BodyPublishers.noBody())
             .build();
@@ -42,7 +42,7 @@ public class LocationRequester {
         
 
         String responseBody = response.body();
-
+        System.out.println(responseBody);
         JSONArray arr = new JSONArray(responseBody);
         countryMap = new HashMap<String,String>();
         for(int i = 0; i < arr.length(); i++){
@@ -58,7 +58,7 @@ public class LocationRequester {
     public String[] getStates(String country) {
         HttpRequest request = HttpRequest.newBuilder()
         .uri(URI.create("https://referential.p.rapidapi.com/v1/state?iso_a2="+countryMap.get(country)+"&limit=250"))
-        .header("X-RapidAPI-Key", "0576e40e11mshf0f4f140e25ff2dp15a79fjsn95442c75dd58")
+        .header("X-RapidAPI-Key", "80cfee487dmsh3c85dbf436bac52p19a664jsnab7a8bdfb0ad")
         .header("X-RapidAPI-Host", "referential.p.rapidapi.com")
         .method("GET", HttpRequest.BodyPublishers.noBody())
         .build();
@@ -83,7 +83,7 @@ public class LocationRequester {
     public String[] getCities(String country, String  state) {
         HttpRequest request = HttpRequest.newBuilder()
             .uri(URI.create("https://referential.p.rapidapi.com/v1/city?iso_a2="+countryMap.get(country)+"&state_code="+stateMap.get(state)+"&limit=250"))
-            .header("X-RapidAPI-Key", "0576e40e11mshf0f4f140e25ff2dp15a79fjsn95442c75dd58")
+            .header("X-RapidAPI-Key", "80cfee487dmsh3c85dbf436bac52p19a664jsnab7a8bdfb0ad")
             .header("X-RapidAPI-Host", "referential.p.rapidapi.com")
             .method("GET", HttpRequest.BodyPublishers.noBody())
             .build();
