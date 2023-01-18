@@ -8,18 +8,36 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 public class AccuWeather {
-    public AccuWeather() {
-        System.out.println("Instantiated accuweather class!");
+
+    private String[] keyWords = {"Region", "District","County", "Town", "Province","Department","Prefecture"};
+    private String removeKeyWords(String location) {
+        for(String key: keyWords) {
+            location = location.replace(key,"");
+        }
+        return location.strip();
     }
     
-    public String[] requestLocation(String country, String state, String city) throws IOException {
+    public String[] requestLocation(String country, String state, String city) {
 
-        Document doc = Jsoup.connect("https://www.accuweather.com/en/search-locations?query="+city+"+"+country+"+"+state).get();
-       
-        Element test = doc.select("a.cur-con-weather-card").first();
-        String newLink = test.attr("href");
+        Document doc = null;
+        try {
+            doc = Jsoup.connect("https://www.accuweather.com/en/search-locations?query="+removeKeyWords(city)+"+"+removeKeyWords(state)+"+"+removeKeyWords(country)).get();
+        } catch (IOException e) {
+        }
+
+        Element test = doc.select("a.cur-con-weather-card").first();;
+        String newLink =null;
+        try{
+            newLink =  test.attr("href");
+        } catch (Exception e) {
+            return null;
+        }
         System.out.println(newLink);
-        Document info = Jsoup.connect("https://www.accuweather.com"+newLink).get();
+        Document info = null;
+        try {
+            info = Jsoup.connect("https://www.accuweather.com"+newLink).get();
+        } catch (IOException e) {
+        }
 
         Elements weatherElements = info.select("div.current-weather-details > div");
        

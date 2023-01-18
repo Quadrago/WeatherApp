@@ -17,11 +17,7 @@ public class LocationRequester {
    
     private Map<String,String> countryMap;
     private Map<String,String> stateMap;
-
-    public LocationRequester() {
-        System.out.println("testing");
-    }
-
+    
     public String[] getCountries()  {
         System.out.println("Getting Countries.....");
         HttpRequest request = HttpRequest.newBuilder()
@@ -42,7 +38,6 @@ public class LocationRequester {
         
 
         String responseBody = response.body();
-        System.out.println(responseBody);
         JSONArray arr = new JSONArray(responseBody);
         countryMap = new HashMap<String,String>();
         for(int i = 0; i < arr.length(); i++){

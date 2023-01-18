@@ -70,9 +70,32 @@ public class ClothingController {
     
 
     @FXML
-    void switchToClosingMenu(ActionEvent event) {
-        
+    void switchToClosingMenu(ActionEvent event) throws IOException {
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");  
+        Date date = new Date(); 
+        String strDate = formatter.format(date); 
+        if(temp >= 20) {
+            CSV.exportData(name,locationArr, strDate, weatherInfo, aboveTwenty);
+        }
+        else if (temp >= 10) {
+            CSV.exportData(name,locationArr, strDate, weatherInfo, aboveTen);
+        }
+        else if (temp >= 0) {
+            CSV.exportData(name,locationArr, strDate, weatherInfo, aboveZero);
+        }
+        else if (temp < 0){
+            CSV.exportData(name,locationArr, strDate, weatherInfo, belowZero);
+        }
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("ClosingMenu.fxml"));
+        Parent root = loader.load();
+
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);;
+        stage.show();
     }
+
     @FXML
     void switchToWeather(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("WeatherData.fxml"));
@@ -87,8 +110,12 @@ public class ClothingController {
         stage.setScene(scene);;
         stage.show();
     }
+    
+
+    
 
     private String imageDir = "src\\main\\resources\\com\\mycompany\\mavenproject1\\images\\";
+
 
     private Image getImage(String file) throws FileNotFoundException {
    
@@ -158,25 +185,18 @@ public class ClothingController {
 
         locationLabel.setText("The Weather Data in " + locationArr[2] +", " + locationArr[1] + " " + locationArr[0]);
 
-        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");  
-        Date date = new Date(); 
-        String strDate = formatter.format(date).replace(" ", ","); 
-        System.out.println(strDate);
+       
         if(temp  >= 20) {
             drawHotClothes();
-            CSV.exportData(locationArr, strDate , weatherInfo, aboveTwenty);
         }
         else if(temp >= 10) {
             drawWarmClothes();
-            CSV.exportData(locationArr, strDate, weatherInfo, aboveTen);
         }
         else if(temp >= 0) {
             drawAverageClothes();
-            CSV.exportData(locationArr, strDate, weatherInfo, aboveZero);
         }
         else if(temp < 0) {
             drawColdClothes(); 
-            CSV.exportData(locationArr, strDate, weatherInfo, belowZero);
         }
 
     }

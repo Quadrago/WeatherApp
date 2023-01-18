@@ -11,6 +11,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
@@ -45,30 +47,75 @@ public class InformationController implements Initializable {
 
     @FXML
     void loadStates(ActionEvent event) {
-        stateBox.setDisable(false);
-        cityBox.setDisable(true);
-        System.out.println("Clearing box done");
         String[] states = locationRequester.getStates(CountryBox.getValue());
         stateBox.getItems().setAll(states);
+        stateBox.setDisable(false);
+        cityBox.setDisable(true);
+        cityBox.getSelectionModel().clearSelection();
+        stateBox.getSelectionModel().clearSelection();
     }
 
     @FXML
     void loadCities(ActionEvent event) {
-        cityBox.setDisable(false);
         String[] cities = locationRequester.getCities(CountryBox.getValue(), stateBox.getValue());
         cityBox.getItems().setAll(cities);
+        cityBox.setDisable(false);
+        cityBox.getSelectionModel().clearSelection();
     }
 
     @FXML
     void getWeather(MouseEvent event) throws IOException {
 
+
         String name = nameInput.getText();
+
+        if(name.isBlank()) {
+            Alert alert = new Alert(AlertType.INFORMATION);
+            alert.setTitle("Warning");
+            alert.setHeaderText("Missing information");
+            alert.setContentText("Please input your name into the Name text field");
+            alert.showAndWait();
+            return;
+        }
+        else if(CountryBox.getValue()==null) {
+            Alert alert = new Alert(AlertType.INFORMATION);
+            alert.setTitle("Warning");
+            alert.setHeaderText("Missing information");
+            alert.setContentText("Please select a country on the drop down menu");
+            alert.showAndWait();
+            return;
+        }
+        else if(stateBox.getValue()==null) {
+            Alert alert = new Alert(AlertType.INFORMATION);
+            alert.setTitle("Warning");
+            alert.setHeaderText("Missing information");
+            alert.setContentText("Please select a state on the drop down menu");
+            alert.showAndWait();
+            return;
+        }
+        else if(cityBox.getValue()==null) {
+            Alert alert = new Alert(AlertType.INFORMATION);
+            alert.setTitle("Warning");
+            alert.setHeaderText("Missing information");
+            alert.setContentText("Please select a city on the drop down menu");
+            alert.showAndWait();
+            return;
+        }
+        
         String[] locationArr = {CountryBox.getValue(),stateBox.getValue(),cityBox.getValue()};
 
         AccuWeather a = new AccuWeather();
-        String[] weatherData = a.requestLocation(CountryBox.getValue(), stateBox.getValue(), cityBox.getValue());
-        // String[] weatherData = a.requestLocation("Canada", "Ontario", "Markham");
-        for(String s : weatherData) System.out.println(s);
+        String[] weatherData = null;
+        weatherData = a.requestLocation(CountryBox.getValue(), stateBox.getValue(), cityBox.getValue());
+        if(weatherData==null) {
+            Alert alert = new Alert(AlertType.INFORMATION);
+            alert.setTitle("Error");
+            alert.setHeaderText("No Location Found");
+            alert.setContentText("Please select another location");
+            alert.showAndWait();
+            return;
+        }
+
         FXMLLoader loader = new FXMLLoader(getClass().getResource("WeatherData.fxml"));
         Parent root = loader.load();
 

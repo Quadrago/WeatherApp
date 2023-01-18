@@ -5,8 +5,7 @@ import java.io.File;
 
 class CSV {  
 
-  public static void exportData(String[] location, String date, String[] weatherInfo, String[] clothingRec) {
-    System.out.println("result");
+  public static void exportData(String name, String[] location, String date, String[] weatherInfo, String[] clothingRec) {
     String path = "results.csv";
 
     FileWriter writer = null;
@@ -14,25 +13,20 @@ class CSV {
     if(!f.exists() && !f.isDirectory()) { 
         try {
           writer = new FileWriter(path, true);
-          writer.write("Country,State,City,Day Of Interest,Temperature,Humidity,Wind,Clothing Options\n");
+          writer.write("Name,Country,State,City,Day Of Interest,Temperature,Humidity,Wind,Clothing Options\n");
           writer.close();
         } catch (IOException e) {
           e.printStackTrace();
         }
     } 
-    else {
-      System.out.println("File already exists.");
-    }
 
     // Write File
     try {
       writer = new FileWriter(path, true);
-      String text = String.join(",",location) + "," + date + "," + String.join(",",weatherInfo) + ","+ String.join(",",clothingRec) + "\n";
+      String text = name  + "," + String.join(",",location) + "," + date.replace(" ", ",") + "," + String.join(",",weatherInfo) + ","+ String.join(",",clothingRec) + "\n";
       writer.write(text);
       
       writer.close();
-
-      System.out.println("Successfully wrote to the file.");
     } catch (IOException e) {
         System.out.println("An error occurred.");
         e.printStackTrace();
