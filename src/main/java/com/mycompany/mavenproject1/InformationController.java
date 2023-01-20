@@ -38,36 +38,60 @@ public class InformationController implements Initializable {
         stateBox.setDisable(true);
         cityBox.setDisable(true);
         locationRequester = new LocationRequester();
-        String[] countries = locationRequester.getCountries();
 
+        //loads countries into combobox
+        String[] countries = locationRequester.getCountries();
         CountryBox.getItems().addAll(countries);
 
     }
 
+    
     @FXML
+    /**
+     * loads states based on selected country
+     * @param event
+     */
     void loadStates(ActionEvent event) {
         String[] states = locationRequester.getStates(CountryBox.getValue());
+
+        //initalize combobox full of items
         stateBox.getItems().setAll(states);
+
+        //changes ability to use specific combo boxes 
         stateBox.setDisable(false);
         cityBox.setDisable(true);
+
+        //clears selection for next boxes
         cityBox.getSelectionModel().clearSelection();
         stateBox.getSelectionModel().clearSelection();
     }
 
     @FXML
+    /**
+     * loads cities based on selected state
+     * @param event when clicking on an item for the state box
+     */
     void loadCities(ActionEvent event) {
         String[] cities = locationRequester.getCities(CountryBox.getValue(), stateBox.getValue());
+        
+        //puts all cities in city combobox
         cityBox.getItems().setAll(cities);
+
         cityBox.setDisable(false);
         cityBox.getSelectionModel().clearSelection();
     }
 
     @FXML
+    /**
+     * goes through many checks to see if all data is filled out to continue to next screen
+     * @param event clicked on "continue" button
+     * @throws IOException
+     */
     void getWeather(MouseEvent event) throws IOException {
 
 
         String name = nameInput.getText();
-
+        //no name
         if(name.isBlank()) {
             Alert alert = new Alert(AlertType.INFORMATION);
             alert.setTitle("Warning");
@@ -76,6 +100,7 @@ public class InformationController implements Initializable {
             alert.showAndWait();
             return;
         }
+        //no country picked
         else if(CountryBox.getValue()==null) {
             Alert alert = new Alert(AlertType.INFORMATION);
             alert.setTitle("Warning");
@@ -84,6 +109,7 @@ public class InformationController implements Initializable {
             alert.showAndWait();
             return;
         }
+        //no state picked
         else if(stateBox.getValue()==null) {
             Alert alert = new Alert(AlertType.INFORMATION);
             alert.setTitle("Warning");
@@ -92,6 +118,7 @@ public class InformationController implements Initializable {
             alert.showAndWait();
             return;
         }
+        //no city picked
         else if(cityBox.getValue()==null) {
             Alert alert = new Alert(AlertType.INFORMATION);
             alert.setTitle("Warning");
@@ -101,11 +128,15 @@ public class InformationController implements Initializable {
             return;
         }
         
+        //creates array of location data
         String[] locationArr = {CountryBox.getValue(),stateBox.getValue(),cityBox.getValue()};
 
+        //gets weather data from requested location
         AccuWeather a = new AccuWeather();
         String[] weatherData = null;
         weatherData = a.requestLocation(CountryBox.getValue(), stateBox.getValue(), cityBox.getValue());
+        
+        //return error if there is no weather data
         if(weatherData==null) {
             Alert alert = new Alert(AlertType.INFORMATION);
             alert.setTitle("Error");
@@ -122,6 +153,7 @@ public class InformationController implements Initializable {
         WeatherDataController weatherDataController = loader.getController();
         weatherDataController.setInfo(weatherData, locationArr, name);
 
+        //sets new scene for next page
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
         stage.setScene(scene);
@@ -129,6 +161,11 @@ public class InformationController implements Initializable {
     }
 
     @FXML
+    /**
+     * switches back to menu screen
+     * @param event click on "back" button
+     * @throws IOException
+     */
     void switchToMenu(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("MainMenu.fxml"));
         Parent root = loader.load();

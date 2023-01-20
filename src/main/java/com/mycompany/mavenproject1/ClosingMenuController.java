@@ -11,7 +11,9 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.scene.Node;
 
-
+/**
+ * Controllr for the menu screen
+ */
 public class ClosingMenuController {
     
     @FXML

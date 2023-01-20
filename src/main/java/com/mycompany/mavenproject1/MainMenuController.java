@@ -23,11 +23,10 @@ public class MainMenuController   {
         Parent root = FXMLLoader.load(getClass().getResource("GeneralInformation.fxml"));
         //Establishes the stage
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        //Refers the new scene to the root
+
+        //sends user to new scene
         Scene scene = new Scene(root);
-        //Sets the scene
         stage.setScene(scene);
-        //Shows the stage
         stage.show();
     }
 }

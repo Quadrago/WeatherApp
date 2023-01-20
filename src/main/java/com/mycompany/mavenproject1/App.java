@@ -13,7 +13,7 @@ public class App extends Application {
 
     @Override
     /**
-     * Sets up the start GUI interface
+     * start up the start GUI interface
      * @param stage the GUI interface 
      */
     public void start(Stage stage) throws IOException {
@@ -21,9 +21,7 @@ public class App extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("MainMenu.fxml"));
         //Sets the title of the stage
         stage.setTitle("Clothing Recommender");
-        //Sets the scene
         stage.setScene(new Scene(root));
-        //Shows the stage
         stage.show();
         
     }

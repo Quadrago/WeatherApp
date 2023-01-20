@@ -19,6 +19,9 @@ import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+/**
+ * Controller for the clothing recommmender screen
+ */
 public class ClothingController {
     
     @FXML
@@ -54,12 +57,13 @@ public class ClothingController {
     private double humidity;
     private String[] weatherInfo;
     
+    //directories for each clothing option
     private String hotWear = "hotWear\\";
     private String warmWear = "warmWear\\";
     private String averageWear = "averageWear\\";
     private String coldWear = "coldWear\\";
 
-    //Different clothing options for different weather
+    //Different clothing options for different weather ranges
     private String[] aboveTwenty = {"T-shirt", "Shorts", "Flip Flops", "Sunglasses", "Tanktop", "Skirt", "Crocs", "Sun Hat"};
     private String[] aboveTen = {"Button Up Shirt", "Trousers", "Running Shoes", "Baseball Cap", "Blouse", "Leggings", "Sandals", "Bucket Hat"};
     private String[] aboveZero = {"Turtleneck", "Jeans", "Timberland Boots", "Windbreaker", "Cardigan", "Jeggings", "Uggs", "Scarf"};
@@ -80,6 +84,7 @@ public class ClothingController {
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");  
         Date date = new Date(); 
         String strDate = formatter.format(date); 
+
         //If else statements to determine the correct clothing recommendation 
         if(temp >= 20) {
             CSV.exportData(name,locationArr, strDate, weatherInfo, aboveTwenty);
@@ -96,15 +101,11 @@ public class ClothingController {
 
         //Loads the Closing Menu screen
         FXMLLoader loader = new FXMLLoader(getClass().getResource("ClosingMenu.fxml"));
-        //Loads the root
         Parent root = loader.load();
-        //Establishes the stage
+        //uses current stage of screen as the new stage
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        //Sets the scene to be the root
         Scene scene = new Scene(root);
-        //Sets the scene
         stage.setScene(scene);
-        //Shows the stage
         stage.show();
     }
 
@@ -117,25 +118,20 @@ public class ClothingController {
     void switchToWeather(ActionEvent event) throws IOException {
         //Establishes the loader to be the Weather Data screen
         FXMLLoader loader = new FXMLLoader(getClass().getResource("WeatherData.fxml"));
-        //Establishes the root 
         Parent root = loader.load();
 
         //Passes the weather data to the clothing recommendation controller
         WeatherDataController tempController = loader.getController();
-        //Sets the needed information data
         tempController.setInfo(weatherInfo, locationArr, name);
 
-        //Establishes the stage
+        //loads the new screen
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        //Sets the scene to be the root
         Scene scene = new Scene(root);
-        //Sets the scene
         stage.setScene(scene);
-        //Shows the stage
         stage.show();
     }
     
-    //Establishes the image directory
+    //the image directory
     private String imageDir = "src\\main\\resources\\com\\mycompany\\mavenproject1\\images\\";
 
     /**
@@ -145,15 +141,12 @@ public class ClothingController {
      * @throws FileNotFoundException
      */
     private Image getImage(String file) throws FileNotFoundException {
-        //Establishes the stream to be the image directory and the file
         InputStream stream = new FileInputStream(imageDir + file);
-        //Establishes the image and stream
         Image image = new Image(stream);
-        //Returns the image needed
         return image;
     }
 
-    //Gets the needed recommended clothing images for the hot weather
+    //draws the needed recommended clothing images for the hot weather
     private void drawHotClothes() throws FileNotFoundException {
         
         mTopView.setImage(getImage(hotWear+"tshirt.jpg"));
@@ -167,7 +160,7 @@ public class ClothingController {
         fAccessoryView.setImage(getImage(hotWear + "sun hat.jpg"));
     }
 
-    //Gets the needed recommended clothing images for the warm weather
+    //draws the needed recommended clothing images for the warm weather
     private void drawWarmClothes() throws FileNotFoundException {
         
         mTopView.setImage(getImage(warmWear+"button up shirt.jpg"));
@@ -181,7 +174,7 @@ public class ClothingController {
         fAccessoryView.setImage(getImage(warmWear + "bucket hat.jpg"));
     }
 
-    //Gets the needed recommended clothing images for the average weather
+    //draws the needed recommended clothing images for the average weather
     private void drawAverageClothes() throws FileNotFoundException {
         
         mTopView.setImage(getImage(averageWear+"turtleneck.jpg"));
@@ -195,7 +188,7 @@ public class ClothingController {
         fAccessoryView.setImage(getImage(averageWear + "scarf.jpg"));
     }
 
-    //Gets the needed recommended clothing images for the cold weather
+    //draws the needed recommended clothing images for the cold weather
     private void drawColdClothes() throws FileNotFoundException {
         
         mTopView.setImage(getImage(coldWear+"sweater.jpg"));
@@ -217,19 +210,18 @@ public class ClothingController {
      * @throws FileNotFoundException
      */
     public void setInfo(String[] weatherInfo, String[] locationArr, String name) throws FileNotFoundException {
-        //Refers to the weather information
         this.weatherInfo = weatherInfo;
-        //Refers to the location
         this.locationArr = locationArr;
-        //Reders to the name
         this.name = name;
+
+        //gets number from temperature data and removes the symbols
         String tempString = weatherInfo[0];
         temp = Double.parseDouble(tempString.substring(0,tempString.length()-1));
         
         //Displays the weather data to the user
         locationLabel.setText("The Weather Data in " + locationArr[2] +", " + locationArr[1] + " " + locationArr[0]);
 
-        // If and else statements to determine which images will be used
+        // If and else statements to determine which images will be drawn
         if(temp  >= 20) {
             drawHotClothes();
         }

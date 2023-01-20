@@ -60,21 +60,16 @@ public class WeatherDataController {
     void switchToClothingRec(ActionEvent event) throws IOException {
         //Establishes the loader to the Clothing Recommendation screen
         FXMLLoader loader = new FXMLLoader(getClass().getResource("RecommendClothing.fxml"));
-        //Establishes the root
         Parent root = loader.load();
 
         //Passes the weather data to the clothing recommendation controller
         ClothingController tempController = loader.getController();
-        //Sets the information to the controller
         tempController.setInfo(weatherInfo, locationArr,name);
 
         //Establishes the stage
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        //Establishes the scene with the root
         Scene scene = new Scene(root);
-        //Sets the scene
         stage.setScene(scene);
-        //Sets the stage
         stage.show();
     }
 
@@ -92,11 +87,8 @@ public class WeatherDataController {
 
         //Establishes the stage
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        //Establishes the scene with the root
         Scene scene = new Scene(root);
-        //Sets the scene
         stage.setScene(scene);
-        //Shows the stage
         stage.show();
     }
 }
