@@ -24,8 +24,6 @@ public class LocationRequester {
      * @return an array of countries
      */
     public String[] getCountries()  {
-        System.out.println("Getting Countries.....");
-
         //request form
         HttpRequest request = HttpRequest.newBuilder()
             .uri(URI.create("https://referential.p.rapidapi.com/v1/country?limit=250"))
