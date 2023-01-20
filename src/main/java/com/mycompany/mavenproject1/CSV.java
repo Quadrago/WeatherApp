@@ -7,7 +7,7 @@ import java.io.File;
 class CSV {  
 
   /**
-   * 
+   * exports weather data, location data, clothing options and user data to a csv file to be used later
    * @param name name of user
    * @param location desired location
    * @param date date when accessed weather data
